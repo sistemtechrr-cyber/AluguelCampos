@@ -14,19 +14,8 @@ import { OwnerDashboardPage } from './components/OwnerDashboardPage';
 import { AdminCredits } from './components/AdminCredits';
 import { useAuth } from './contexts/AuthContext';
 
-// Função para embaralhar array (algoritmo Fisher-Yates)
-const shuffleArray = (array: Field[]) => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
 function App() {
   const [fields, setFields] = useState<Field[]>([]);
-  const [shuffledFields, setShuffledFields] = useState<Field[]>([]);
   const [selectedField, setSelectedField] = useState<Field | null>(null);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -59,32 +48,13 @@ function App() {
 
     if (!error && data) {
       setFields(data);
-      // Embaralhar os campos para exibição aleatória
-      const shuffled = shuffleArray(data);
-      setShuffledFields(shuffled);
     }
     setLoading(false);
-  };
-
-  // Função para reembaralhar os campos (pode ser chamada por um botão se quiser)
-  const reshuffleFields = () => {
-    if (fields.length > 0) {
-      const shuffled = shuffleArray(fields);
-      setShuffledFields(shuffled);
-    }
   };
 
   useEffect(() => {
     fetchFields();
   }, [isProprietario, profile?.id]);
-
-  // Reembaralhar quando os campos forem atualizados
-  useEffect(() => {
-    if (fields.length > 0) {
-      const shuffled = shuffleArray(fields);
-      setShuffledFields(shuffled);
-    }
-  }, [fields]);
 
   const handleDeleteField = async () => {
     if (!deletingField) return;
@@ -109,9 +79,6 @@ function App() {
 
   // Landing Page para usuários não logados
   if (!user) {
-    // Embaralhar os campos para a landing page também
-    const featuredFields = shuffleArray([...fields]).slice(0, 3);
-
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
         {/* Header da Landing Page */}
@@ -209,7 +176,7 @@ function App() {
                     </div>
                   ))
                 ) : (
-                  featuredFields.map((field) => (
+                  fields.slice(0, 3).map((field) => (
                     <div key={field.id} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                       <img src={field.foto_url} alt={field.nome} className="w-full h-48 object-cover" />
                       <div className="p-5">
@@ -393,7 +360,7 @@ function App() {
                     className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-5 py-3 rounded-xl transition-colors shadow-sm"
                   >
                     <Coins className="w-5 h-5" />
-                    <span className="hidden sm:inline">Créditos</span>
+                    <span className="hidden sm:inline">Creditos</span>
                   </button>
                 </>
               )}
@@ -422,40 +389,25 @@ function App() {
               </div>
             ))}
           </div>
-        ) : shuffledFields.length === 0 ? (
+        ) : fields.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-gray-500 text-lg font-['Inter']">
               Nenhum campo cadastrado ainda
             </p>
           </div>
         ) : (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {shuffledFields.map((field) => (
-                <FieldCard
-                  key={field.id}
-                  field={field}
-                  onClick={() => setSelectedField(field)}
-                  onEdit={isAdmin ? (field) => setEditingField(field) : undefined}
-                  onDelete={isAdmin ? (field) => setDeletingField(field) : undefined}
-                  isAdmin={isAdmin}
-                />
-              ))}
-            </div>
-            
-            {/* Botão opcional para reembaralhar (pode ser adicionado se desejar) */}
-            {shuffledFields.length > 0 && (
-              <div className="flex justify-center mt-8">
-                <button
-                  onClick={reshuffleFields}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition-colors"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                  Embaralhar Campos
-                </button>
-              </div>
-            )}
-          </>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {fields.map((field) => (
+              <FieldCard
+                key={field.id}
+                field={field}
+                onClick={() => setSelectedField(field)}
+                onEdit={isAdmin ? (field) => setEditingField(field) : undefined}
+                onDelete={isAdmin ? (field) => setDeletingField(field) : undefined}
+                isAdmin={isAdmin}
+              />
+            ))}
+          </div>
         )}
       </main>
 
