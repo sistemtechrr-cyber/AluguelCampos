@@ -120,7 +120,7 @@ function App() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 font-['Poppins']">
-                  Aluguel de Campos
+                  Aluguel de Campos RR
                 </h1>
               </div>
               <button
@@ -266,7 +266,7 @@ function App() {
                 Pronto para começar?
               </h2>
               <p className="text-lg mb-8">
-                Junte-se a milhares de pessoas que já estão usando nossa plataforma
+                Junte-se as pessoas que já estão usando nossa plataforma
               </p>
               <button
                 onClick={() => setShowRegisterModal(true)}
@@ -283,7 +283,7 @@ function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
-                <h3 className="text-xl font-bold font-['Poppins'] mb-4">Aluguel de Campos</h3>
+                <h3 className="text-xl font-bold font-['Poppins'] mb-4">Aluguel de Campos RR</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
                   Encontre o campo perfeito para seu jogo. Oferecemos os melhores campos esportivos para você praticar seu esporte favorito.
                 </p>
@@ -363,7 +363,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 font-['Poppins']">
-                Aluguel de Campos
+                Aluguel de Campos RR
               </h1>
               <p className="text-gray-600 mt-1 font-['Inter']">
                 {isProprietario 
@@ -463,7 +463,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-xl font-bold font-['Poppins'] mb-4">Aluguel de Campos</h3>
+              <h3 className="text-xl font-bold font-['Poppins'] mb-4">Aluguel de Campos RR</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Encontre o campo perfeito para seu jogo. Oferecemos os melhores campos esportivos para você praticar seu esporte favorito.
               </p>
@@ -502,7 +502,7 @@ function App() {
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} Aluguel de Campos. Todos os direitos reservados.
+              &copy; {new Date().getFullYear()} Aluguel de Campos RR. Todos os direitos reservados.
             </p>
             <p className="text-gray-500 text-xs mt-2">
               Desenvolvido por SistemTech RR
